@@ -32,10 +32,15 @@
               data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
-      <%= form_tag(users_path, method: :get) do %>
-  <%= text_field_tag :user %>
-  <%= submit_tag 'Search' %>
+
+<div>
+<%= form_tag(users_path,:method => 'get') do %>
+  <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag 'Search', :name => nil %>
 <% end %>
+
+</div>
+
   </table>
       <%= paginate @users %>
 </div>
