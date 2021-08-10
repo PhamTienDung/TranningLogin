@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :require_login, only: %i(new create)
 
   def index
-    @users = User.page(params[:page]).per(10)
+    @users = User.page(params[:page]).per(10).search(params[:search])
   end
 
   def show
@@ -23,9 +23,7 @@ class UsersController < ApplicationController
       render :new
     end
   end
-  def search
-    @user = User.search(params[:search])
-  end
+
   def edit
     @user = User.find(params[:id])
   end
@@ -46,7 +44,7 @@ class UsersController < ApplicationController
     @user.destroy
     redirect_to users_path
   end
-  
+
   private
   def user_params
     params.require(:user).permit :name, :password, :password_confirmation
